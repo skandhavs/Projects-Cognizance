@@ -1,0 +1,109 @@
+.forest{
+    background-image: url(forestimg.jpg);
+    
+    height:100vh;; 
+    background-repeat: no-repeat;
+    background-size: 100% 100%;
+    
+}
+body{
+    margin-left: 0px;
+    margin-top: 0px;
+    margin-right: 0px;;
+}
+h1{
+    font-family: 'Satisfy', cursive;
+    margin-left :50px;
+    margin-top: 25px;
+    margin-right: 0px;;
+    width: fit-content;
+    display: inline;
+    float: left;
+}
+.Nav h3 a{
+    width: fit-content;
+    float: left;
+    display: inline;
+    margin-top: 35px;;
+    margin-right:100px;
+    font-family: 'Dosis', sans-serif;
+    color: #25385b;
+    text-decoration: none;
+}
+#hm{
+    margin-left: 800px;
+}
+.Forests{
+    font-family: 'Space Grotesk', sans-serif;
+    color: #25385b;
+    position:absolute;
+    width:500px;
+    top:150px;
+    left:125px;
+}
+li{
+    color:rgb(225, 225, 195);
+}
+.Forests a{
+    color:rgb(225, 225, 195);
+}
+img{
+    border-style: hidden;
+    border-radius: 50px;;
+}
+#img1{
+    background-color: rgba(255, 255, 255, 0.281);
+    position:absolute;
+    border-style: hidden;
+    border-radius: 250px;
+    top:125px;
+    left:850px;
+    width:fit-content;
+}
+.Oceans{
+    background-image: url(oceanbeach.jpg);
+    
+    height:100vh;; 
+    background-repeat: no-repeat;
+    background-size: 100% 100%;
+    
+}
+.OceanText{
+font-family: 'Space Grotesk', sans-serif;
+color: #25385b;
+position:absolute;
+width:500px;
+top:850px;
+left:925px;}
+.OceanText h1{
+    font-family: 'Space Grotesk', sans-serif;
+    margin-bottom:0px;
+    margin-left:0px;
+   
+}
+.OceanText a{
+    color: #25385b;
+}
+#img2{
+    position:absolute;
+    top:875px;
+    left:150px;
+}
+.Air{
+    background-image: url(airpollution.jpg);
+    
+    height:100vh;; 
+    background-repeat: no-repeat;
+    background-size: 100% 100%;
+}
+.AirText{
+    font-family: 'Space Grotesk', sans-serif;
+color: #8d2362;
+position:absolute;
+width:500px;
+top:1650px;
+left:925px;
+}
+.AirText a{
+    color: #8d2362; 
+}
