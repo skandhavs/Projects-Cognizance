@@ -6,6 +6,10 @@
     background-size: 100% 100%;
     
 }
+html{
+    scroll-behavior: smooth;
+    height:fit-content;
+}
 body{
     margin-left: 0px;
     margin-top: 0px;
@@ -24,12 +28,24 @@ h1{
     width: fit-content;
     float: left;
     display: inline;
-    margin-top: 35px;;
+    margin-top: 22px;;
     margin-right:100px;
     font-family: 'Dosis', sans-serif;
     color: #25385b;
     text-decoration: none;
 }
+.Nav a:hover{
+    text-decoration: underline;
+}
+.Nav{
+    color: #25385b;
+    width: 1920px;  
+    height: 88.54px; 
+    position:fixed;
+    top:0px;
+    z-index:10;
+}
+
 #hm{
     margin-left: 800px;
 }
@@ -98,12 +114,34 @@ left:925px;}
 }
 .AirText{
     font-family: 'Space Grotesk', sans-serif;
-color: #8d2362;
+    color: #8e105b;
 position:absolute;
 width:500px;
-top:1650px;
-left:925px;
+top:1550px;
+left:125px;
+}
+.AirText h1{
+    font-family: 'Space Grotesk', sans-serif;
+    margin-bottom:0px;
+    margin-left:0px;
+   
 }
 .AirText a{
-    color: #8d2362; 
+    color: #8e105b;
+}
+#img3{
+    position:absolute;
+    left:900px;
+    top:1590px;
+    opacity: 70%;
+}
+
+#img4{
+    position:absolute;
+    left:1200px;
+    top:1910px;
+    opacity: 70%;  
+}
+li{
+    width:fit-content;
 }
