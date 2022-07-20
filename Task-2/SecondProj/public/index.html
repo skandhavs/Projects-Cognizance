@@ -1,0 +1,33 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Montserrat:ital,wght@0,100;0,200;0,300;0,400;0,500;0,600;1,100;1,200;1,300;1,400;1,500;1,600&display=swap" rel="stylesheet">
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Multiple Mail Sender</title> 
+    <style>
+        body{background-image: radial-gradient( circle farthest-corner at 50.7% 54%,  rgba(204,254,152,1) 0%, rgba(229,253,190,1) 92.4% );
+            font-family: 'Montserrat', sans-serif;}
+            </style>   
+</head>
+<body>
+    {% block content %}
+    <h1>SEND EMAILS TO MULTIPLE PEOPLE</h1>
+    <form action="mail" method="post" target="_blank" id="fel">
+        {% csrf_token %}
+        <p >Enter Emails (give comma after each email id )</p>                      
+        <textarea type="text" name="to" id="to"> </textarea>
+        <p >Enter Your Gmail:&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; <input type="text" name="from"> </p>
+        <p >Enter Your Password:&nbsp;&nbsp;&nbsp;&nbsp;<input type="password" name="password"> </p>
+        <p >Enter Subject:&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+        <textarea type="text" name="subject" id="subject"> </textarea></p>
+        <p >Enter Message:&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+        <textarea type="text" name="message" id="message"> </textarea></p>
+        <button id="sendbutton" type="submit">Send</button></div>
+      </form>
+    
+    {% endblock %}
+</body>
+</html>

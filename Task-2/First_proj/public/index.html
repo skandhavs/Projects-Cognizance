@@ -1,0 +1,145 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Montserrat:ital,wght@0,100;0,200;0,300;0,400;0,500;0,600;1,100;1,200;1,300;1,400;1,500;1,600&display=swap" rel="stylesheet">
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Calculator</title>
+    <style>
+        body{background-image: radial-gradient( circle farthest-corner at 50.7% 54%,  rgba(204,254,152,1) 0%, rgba(229,253,190,1) 92.4% );
+            font-family: 'Montserrat', sans-serif;}.row{
+        display:flex;
+        }
+        .fr,.sr,.tr{
+            margin-right: 25px;
+        }
+        .ftr{
+            margin-right: 30px; 
+        }
+        .calc_area{
+            position:absolute;
+            left:600px;
+            top:250px;
+        }
+        .calc_area1{
+            position:absolute;
+            left:50px;
+            
+        }
+        .calc_area2{
+            position:absolute;
+            left:50px;
+            top:90px;
+        }
+        h1{
+        text-align: center;
+        font-size: 50px;
+        }
+        input{
+            font-size: 25px;;
+        }
+        </style>
+</head>
+<body>
+    {% block content %}
+        <h1>Calculator</h1>
+        <div class="calc_area">
+        <form action="eq" method="post" > 
+            {% csrf_token %}    
+            <input id = "calc" type ="text" name = "answer" value="{{result}}"> <br> <br>  
+        </form>  
+        <div class="calc_area1">
+        <div class="row">
+        <form action="delete" method="post" class="fr">
+            {% csrf_token %}
+            <input type = "submit" value = "Delete" >
+        </form><br>
+        <form action="erase" method="post" class="fr">
+            {% csrf_token %}
+            <input type = "submit" value = "Erase" >
+        </form>
+    </div>
+</div>
+    <div class="calc_area2">      
+        <br>
+        <div class="row">   
+        <form action="input" method="post" class="sr">
+            {% csrf_token %}
+            <input type = "submit" value = "1" name="input_value">
+            
+        </form>  
+        <form action="input" method="post" class="sr">
+            {% csrf_token %}
+            <input type = "submit" value = "2" name="input_value">
+        </form>
+        <form action="input" method="post" class="sr">
+            {% csrf_token %}
+            <input type = "submit" value = "3" name="input_value">
+        </form>
+        <form action="input" method="post" class="sr">
+            {% csrf_token %}
+            <input type = "submit" value = "+" name="input_value">
+        </form></div>         
+        <br> 
+        <div class="row">
+        <form action="input" method="post" class="sr">
+            {% csrf_token %}
+            <input type = "submit" value = "4" name="input_value">            
+        </form>  
+        <form action="input" method="post" class="sr">
+            {% csrf_token %}
+            <input type = "submit" value = "5" name="input_value">
+        </form>
+        <form action="input" method="post" class="sr">
+            {% csrf_token %}
+            <input type = "submit" value = "6" name="input_value">
+        </form>
+        <form action="input" method="post" class="sr">
+            {% csrf_token %}
+            <input type = "submit" value = "-" name="input_value">
+        </form></div>         
+        <br> 
+        <div class="row"> 
+        <form action="input" method="post" class="tr">
+            {% csrf_token %}
+            <input type = "submit" value = "7" name="input_value">
+        </form>  
+        <form action="input" method="post" class="tr">
+            {% csrf_token %}
+            <input type = "submit" value = "8" name="input_value">
+        </form>
+        <form action="input" method="post" class="tr">
+            {% csrf_token %}
+            <input type = "submit" value = "9" name="input_value">
+        </form>
+        <form action="input" method="post" class="tr">
+            {% csrf_token %}
+            <input type = "submit" value = "*" name="input_value">
+        </form></div>         
+        <br>
+        <div class="row">    
+        <form action="input" method="post" class="ftr">
+            {% csrf_token %}
+            <input type = "submit" value = "/" name="input_value">
+        </form>  
+        <form action="input" method="post" class="ftr">
+            {% csrf_token %}
+            <input type = "submit" value = "0" name="input_value">
+        </form>
+        <form action="input" method="post" class="ftr">
+            {% csrf_token %}
+            <input type = "submit" value = "." name="input_value">
+        </form>
+        <form action="fin_val" method="post" class="ftr">
+            {% csrf_token %}
+            <input type = "submit" value = "=" >
+        </form> 
+    </div>        
+        <br>
+    </div> 
+</div>
+    {% endblock %}
+</body>
+</html>
