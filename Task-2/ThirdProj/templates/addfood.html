@@ -1,0 +1,50 @@
+{% extends 'base.html' %}
+{% block content %}  
+    <div>
+        <div class="login-screen std" style="border-style: solid border;">
+            <div >
+                <h1 style="color: rgb(46, 4, 84); ">New food details:</h1>
+            </div>
+            <form method="POST" action="" class="login-form ">
+              {% csrf_token %}
+                {% for field in form %}
+                <h5 class="form-labels">
+                {{ field.label }}
+                </h5>
+                {{ field }}
+                {% endfor %}
+                <input  type="submit" value="Enter">
+            </form>
+        </div>        
+    <div class="col-search ">
+    <div class="login">
+        <div class="login-screen" style="border: none;">
+              <form method="get">
+                  <h1>{{ myFilter.form }}</h1>
+                  <button class="btn mt-2" type="submit">Search </button>
+              </form> 
+        </div>
+    </div>
+  </div>
+  <h1 class="adfhead"  style="color: rgb(46, 4, 84); ;padding:10px;">Added Food Items  </h1>
+        <h1 class="headline">  </h1>
+        <table class="table3 text-center ">
+            <thead>
+                <tr>
+                    <th scope="col">Food Name</th>
+                    <th scope="col">Calories</th>
+                    <th scope="col">Quantity</th>
+                </tr>
+            </thead>
+            <tbody>
+                {% for food in food_items %}
+                <tr>
+                    <td>{{ food.name }}</td>
+                    <td>{{ food.calorie }}</td>
+                    <td>{{ food.quantity }}</td>                    
+                </tr>
+                {% endfor %}
+            </tbody>
+        </table>      
+</div>
+{% endblock content %}

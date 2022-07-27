@@ -1,0 +1,55 @@
+{% extends 'base.html' %}
+
+{% block content %}
+<h1 id="username" class="text-center  headline">Hello {{ request.user }}<sub><a id="lgout"href="{% url "logout" %}">Logout</a></sub></h1>
+<div >
+  <div class="row">
+    <div class="cards ">
+      <div class="card ">
+        <h3 class="card-title text-center">Total Calories you have consumed today</h3>
+        <p class="card-text text-center">{{ total_calorie }}</p> 
+    </div>
+    </div>
+    <div class="cards">
+      <div class="card ">
+        <h3 class="card-title text-center">The Calorie Goal you have set for Today</h>
+        <p class="card-text text-center">{{ calorie_goal }}</p> 
+  </div>
+    </div>
+  </div>
+</div>
+      <div class="card  text-center "  style="border-radius: 20px;">
+        <div class="card-body"> 
+          <p class="card-goal" style="font-size:22px"> 
+          {% if calorie_goal_status > 0 %}
+      You need  {{ calorie_goal_status }} calories more to reach your goal 
+      {% elif calorie_goal == 0 %}
+      <a href={% url "profile" %}> Set your calorie goal for the day </a>
+      {% else %}
+      BAD!!!You have overshot your limit by {{ over_calorie }} calories 
+      {% endif %} </p>
+        </div>
+      </div>
+<h1 class="headline text-center ">Your meals consumed today </h1>
+<div class=" table-disp"> 
+<table class="table ">
+  <thead >
+    <tr class="text-center">
+      <th scope="col">Food</th>
+      <th scope="col">Calorie</th>
+      <th scope="col">Count</th>
+    </tr>
+  </thead>
+  <tbody>
+    {% for food in food_selected_today %}
+    <tr class="text-center">
+      <td> {{ food.food.name }}</td>
+      <td> {{ food.calorie_amount }}</td>
+      <td> {{ food.amount }}</td>
+    </tr>
+    {% endfor %}
+  </tbody>
+</table>
+</div>
+
+{% endblock content %}

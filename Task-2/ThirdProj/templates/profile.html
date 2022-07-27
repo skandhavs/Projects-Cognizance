@@ -1,0 +1,67 @@
+{% extends 'base.html' %}
+{% block content %}
+<div class="profile">
+    <h1 class="headline2">Your Profile</h1>
+        <div class="row ">
+            <div class="card aligndiv">
+            <div> 
+                <h1 class="text-profile">Hi  {{ request.user }} ,</h1>
+            </div>
+            <form method="POST" action="" class="login-form ">
+              {% csrf_token %}
+                {% for field in form %}
+                <h1>Calorie Goal For Today</h1>
+                {{ field }}
+                {% endfor %}
+                <input class=" profile-submit " type="submit" value="Enter">
+            </form>
+        </div>
+        <div class="aligndiv">
+        <h1 class="text-center headline ">Records From Past Week</h1>
+        <table class="table1 text-center">
+            <thead >
+                <tr>
+                    <th scope="col">Date</th>
+                    <th scope="col">Calorie Consumed</th>
+                    <th scope="col">Calorie Goal</th>
+                </tr>
+            </thead>
+            <tbody>
+                {% for record in records %}
+                <tr>
+                    <td>{{ record.date }}</td>
+                    <td>{{ record.total_calorie }}</td>
+                    <td>{{ record.calorie_goal }}</td>     
+                </tr>
+                {% endfor %}
+            </tbody>
+        </table>  
+    </div>
+</div>
+    <h1 class="text-center headline">All Food Items</h1>
+     <div class="row ">
+      <table class="table2 text-center">
+            <thead >
+                <tr>
+                    <th scope="col">Food Name</th>
+                    <th scope="col">Calories</th>
+                    <th scope="col">Quantity</th>
+                    <th scope="col">Update</th>
+                    <th scope="col">Delete</th>
+                </tr>
+            </thead>
+            <tbody>
+                {% for food in food_items %}
+                <tr>
+                    <td>{{ food.name }}</td>
+                    <td>{{ food.calorie }}</td>
+                    <td>{{ food.quantity }}</td>
+                    <td><a  href="{% url 'update_food' food.id %}">Update</a></td>
+                    <td><a  href="{% url 'delete_food' food.id %}">Delete</a></td>
+                </tr>
+                {% endfor %}
+            </tbody>
+        </table>  
+    </div>
+</div>
+{% endblock content %}

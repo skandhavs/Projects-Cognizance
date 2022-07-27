@@ -1,0 +1,38 @@
+{% extends 'base.html' %}
+{% block content %}
+    <div class="centerd">
+        <div class="login-screen">
+            <div >
+                <h1 class="headline">Select Food</h1>
+            </div>
+            <form method="POST" action="" >
+              {% csrf_token %}
+              <h5 >
+                {{ form.as_p }}
+            </h5>
+                <input type="submit" value="Select">
+            </form>
+        </div>
+    </div>
+    <div >
+   <h1 class="headline text-center ">All Food Items </h1>
+        <table class="table4 ">
+            <thead >
+                <tr>
+                    <th scope="col">Food Name</th>
+                    <th scope="col">Calories</th>
+                    <th scope="col">Quantity</th>
+                </tr>
+            </thead>
+            <tbody>
+                {% for food in food_items %}
+                <tr>
+                    <td>{{ food.name }}</td>
+                    <td>{{ food.calorie }}</td>
+                    <td>{{ food.quantity }}</td>    
+                </tr>
+                {% endfor %}
+            </tbody>
+        </table>  
+     </div>
+{% endblock content %}

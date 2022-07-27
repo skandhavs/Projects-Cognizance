@@ -1,0 +1,33 @@
+{% extends 'base.html' %}
+{% block content %}
+    <div >
+        <div class="login-screen">
+            <div >
+                <h1>Login</h1>
+            </div>
+            <form method="POST" action="" >
+              {% csrf_token %}
+                <div >
+                <input type="text" name="username" placeholder="Username..." >
+                </div>
+                <p></p>
+                <div >
+                <input type="password" name="password" placeholder="Password..." >
+                </div> 
+                <p></p>
+                <input  type="submit" value="Login">
+            </form>
+            <p></p>
+            {% for message in messages %}
+                    <p >{{message}}</p>
+            {% endfor %} 
+            <p></p>
+            <p></p>
+            <div >
+                <div >
+                    If you don't have an account - <a href="{% url 'register' %}" >Sign Up for Calorie Tracker</a>
+                </div>
+            </div>
+        </div>
+    </div>
+{% endblock content %}
