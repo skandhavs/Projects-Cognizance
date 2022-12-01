@@ -1,0 +1,227 @@
+DROP TABLE department CASCADE constraints;
+DROP TABLE branch CASCADE constraints;
+DROP TABLE applicant CASCADE constraints;
+DROP TABLE course CASCADE constraints;
+DROP TABLE student CASCADE constraints;
+DROP TABLE registration CASCADE constraints;
+DROP TABLE instructor CASCADE constraints;
+DROP TABLE courseallocation CASCADE constraints;
+DROP TABLE hostel CASCADE constraints;
+DROP TABLE hostelallocation CASCADE constraints;
+
+
+CREATE TABLE department(
+departmentid NUMBER(2) CONSTRAINT pk_department_departmentid PRIMARY KEY,
+departmentname VARCHAR2(30) NOT NULL,
+headofdepartment VARCHAR2(4)
+);
+
+INSERT INTO department VALUES(10,'Computer Science','I101');
+INSERT INTO department VALUES(20,'Electronics','I104');
+INSERT INTO department VALUES(30,'Civil','I107');
+INSERT INTO department VALUES(40,'Environmental',NULL);
+
+CREATE TABLE branch(
+branchid VARCHAR2(2) CONSTRAINT pk_branch_branchid PRIMARY KEY
+CONSTRAINT ck_branch_branchid CHECK(branchid LIKE 'B%'),
+branchname VARCHAR2(30) NOT NULL,
+seatsavailable NUMBER,
+departmentid NUMBER(2) CONSTRAINT fk_branch_departmentid REFERENCES department(departmentid) ON DELETE CASCADE
+);
+
+INSERT INTO branch VALUES('B1','Computer Science',5,10);
+INSERT INTO branch VALUES('B2','Electronics',5,20);
+INSERT INTO branch VALUES('B3','Civil',5,30);
+INSERT INTO branch VALUES('B4','Environmental',5,40);
+
+
+CREATE TABLE applicant(
+applicantid NUMBER CONSTRAINT pk_applicant_applicantid PRIMARY KEY,
+applicantname VARCHAR2(30) NOT NULL,
+emailid VARCHAR2(20) CONSTRAINT uq_applicant_emailid UNIQUE,
+optedbranch VARCHAR2(2) CONSTRAINT fk_applicant_optedbranch REFERENCES branch(branchid),
+overallpercentage NUMBER(3),
+admissionstatus VARCHAR2(1) CONSTRAINT ck_applicant_admissionstatus check (admissionstatus IN ('S','A','R')),
+hostelrequired VARCHAR2(1) CONSTRAINT ck_applicant_hostelrequired check (hostelrequired IN ('Y','N')),
+gender VARCHAR2(1) CONSTRAINT ck_applicant_gender CHECK (gender IN ('M','F'))
+);
+
+INSERT INTO applicant VALUES('10001','Rubi','rubi@abc.com','B1',75,'A','Y','F');
+INSERT INTO applicant VALUES('10002','Vadi','vadi@abc.com','B1',72,'S','Y','M');
+INSERT INTO applicant VALUES('10003','Sam','sam@abc.com','B1',70,'A','Y','M');
+INSERT INTO applicant VALUES('10004','Suraj','suraj@abc.com','B1',60,'R','N','M');
+INSERT INTO applicant VALUES('10005','Lakshmi','lakshmi@abc.com','B2',69,'R','N','F');
+INSERT INTO applicant VALUES('10006','Sandra','sandra@abc.com','B2',90,'A','N','M');
+INSERT INTO applicant VALUES('10007','Vivek','vivek@abc.com','B2',89,'A','Y','M');
+INSERT INTO applicant VALUES('10008','Vikas','vikas@abc.com','B2',77,'S','N','M');
+INSERT INTO applicant VALUES('10009','Bipin','bipin@abc.com','B3',92,'A','Y','M');
+INSERT INTO applicant VALUES('10010','Gopi','gopi@abc.com','B3',86,'A','Y','M');
+INSERT INTO applicant VALUES('10011','Sandy','sandy@abc.com','B3',67,'S','Y','F');
+INSERT INTO applicant VALUES('10012','Lilly','lilly@abc.com','B3',76,'S','N','F');
+INSERT INTO applicant VALUES('10013','Rose','rose@abc.com','B1',57,'S','N','F');
+INSERT INTO applicant VALUES('10014','Megha','megha@abc.com','B2',70,'S','N','F');
+INSERT INTO applicant VALUES('10015','Henry','henry@abc.com','B3',75,'S','N','M');
+INSERT INTO applicant VALUES('10016','Joel','jeol@abc.com','B1',79,'S','N','M');
+
+
+CREATE TABLE course(
+courseid VARCHAR2(4) CONSTRAINT pk_course_courseid PRIMARY KEY,
+coursename VARCHAR2(30) NOT NULL,
+semester NUMBER(1),
+branchid VARCHAR2(2) CONSTRAINT fk_course_branchid REFERENCES branch(branchid),
+elective VARCHAR2(1) CONSTRAINT ck_course_elective CHECK(elective IN ('E','R')),
+durationinhours NUMBER(3),
+allocationstatus VARCHAR2(1) CONSTRAINT ck_course_allocationstatus CHECK(allocationstatus IN('A','N'))
+);
+
+INSERT INTO course VALUES('C001','Programming Fundamentals',1,'B1','R',40,'N');
+INSERT INTO course VALUES('C002','Data Structures',1,'B1','R',40,'N');
+INSERT INTO course VALUES('C003','Basics of RDBMS',1,'B1','E',20,'N');
+INSERT INTO course VALUES('C004','System Software',1,'B1','E',20,'N');
+INSERT INTO course VALUES('C005','Computer Hardware',2,'B1','R',40,'A');
+INSERT INTO course VALUES('C006','File Structures',2,'B1','R',40,'A');
+INSERT INTO course VALUES('C007','Data Warehousing',2,'B1','E',20,'A');
+INSERT INTO course VALUES('C008','Neural Networks',2,'B1','E',20,'A');
+
+INSERT INTO course VALUES('C009','Programming in C',1,'B2','R',40,'N');
+INSERT INTO course VALUES('C010','Basic Electronics',1,'B2','R',40,'N');
+INSERT INTO course VALUES('C011','Integrated circuits',1,'B2','E',20,'N');
+INSERT INTO course VALUES('C012','Data Communication',1,'B2','E',20,'N');
+INSERT INTO course VALUES('C013','Electronic circuits',2,'B2','R',40,'A');
+INSERT INTO course VALUES('C014','Signals and systems',2,'B2','R',40,'A');
+INSERT INTO course VALUES('C015','Nano Technology',2,'B2','E',20,'A');
+INSERT INTO course VALUES('C016','Digital electronics',2,'B2','E',20,'A');
+
+INSERT INTO course VALUES('C017','Basics of Civil Engineering',1,'B3','R',40,'N');
+INSERT INTO course VALUES('C018','Strength of Materials',1,'B3','R',40,'N');
+INSERT INTO course VALUES('C019','Surveying',1,'B3','E',20,'N');
+INSERT INTO course VALUES('C020','Construction Engineering',1,'B3','E',20,'N');
+INSERT INTO course VALUES('C021','Design of concrete structures',2,'B3','R',40,'N');
+INSERT INTO course VALUES('C022','Civil Engineering Drawing',2,'B3','R',40,'N');
+INSERT INTO course VALUES('C023','Geo Technical Engineering',2,'B3','E',20,'N');
+INSERT INTO course VALUES('C024','Auto CAD',2,'B3','E',20,'N');
+
+INSERT INTO course VALUES('C025','Environmental Pollution',1,'B4','R',30,'N');
+INSERT INTO course VALUES('C026','Social Issues and the Environment',2,'B4','R',20,'N');
+
+
+CREATE TABLE student (
+studentid NUMBER CONSTRAINT pk_student_studentid PRIMARY KEY,
+applicantid NUMBER CONSTRAINT fk_student_applicantid REFERENCES applicant(applicantid),
+currentsemester NUMBER(1),
+branchid VARCHAR2(2) CONSTRAINT fk_student_branchid REFERENCES branch(branchid),
+userid VARCHAR2(35) CONSTRAINT uq_student_ueserid UNIQUE,
+password VARCHAR2(15) NOT NULL,
+residentialstatus VARCHAR2(1) CONSTRAINT ck_student_residentialstatus check (residentialstatus IN ('H','D'))
+);
+
+INSERT INTO student VALUES('2001','10001',2,'B1','rubi2001','tiger','H');
+INSERT INTO student VALUES('2002','10003',2,'B1','sam2002','tiger','D');
+INSERT INTO student VALUES('2003','10006',2,'B2','sandra2003','tiger','D');
+INSERT INTO student VALUES('2004','10007',2,'B2','vivek2004','tiger','H');
+INSERT INTO student VALUES('2005','10009',2,'B3','bipin2005','tiger','H');
+INSERT INTO student VALUES('2006','10010',2,'B3','goopi2006','tiger','D');
+
+
+CREATE TABLE registration (
+registrationid NUMBER CONSTRAINT pk_registration_registrationid PRIMARY KEY,
+studentid NUMBER CONSTRAINT fk_registration_studentid REFERENCES student(studentid),
+courseid VARCHAR2(4) CONSTRAINT fk_registraiton_courseid REFERENCES course(courseid),
+projectscore NUMBER(3),
+assignmentscore NUMBER(3) ,
+internalscore NUMBER(3),
+semesterscore NUMBER(3),
+grade Varchar2(2)
+);
+
+INSERT INTO registration VALUES(70001,2001,'C001',NULL,NULL,NULL,NULL,NULL);
+INSERT INTO registration VALUES(70002,2002,'C001',NULL,NULL,NULL,NULL,NULL);
+
+INSERT INTO registration VALUES(70003,2001,'C002',NULL,NULL,NULL,NULL,NULL);
+INSERT INTO registration VALUES(70004,2002,'C002',NULL,NULL,NULL,NULL,NULL);
+
+INSERT INTO registration VALUES(70005,2001,'C003',NULL,NULL,NULL,NULL,NULL);
+INSERT INTO registration VALUES(70006,2002,'C004',NULL,NULL,NULL,NULL,NULL);
+
+INSERT INTO registration VALUES(70007,2003,'C009',NULL,NULL,NULL,NULL,NULL);
+INSERT INTO registration VALUES(70008,2004,'C009',NULL,NULL,NULL,NULL,NULL);
+
+INSERT INTO registration VALUES(70009,2003,'C010',NULL,NULL,NULL,NULL,NULL);
+INSERT INTO registration VALUES(70010,2004,'C010',NULL,NULL,NULL,NULL,NULL);
+
+INSERT INTO registration VALUES(70011,2003,'C011',NULL,NULL,NULL,NULL,NULL);
+INSERT INTO registration VALUES(70012,2004,'C012',NULL,NULL,NULL,NULL,NULL);
+
+INSERT INTO registration VALUES(70013,2005,'C017',NULL,NULL,NULL,NULL,NULL);
+INSERT INTO registration VALUES(70014,2006,'C017',NULL,NULL,NULL,NULL,NULL);
+
+INSERT INTO registration VALUES(70015,2005,'C018',NULL,NULL,NULL,NULL,NULL);
+INSERT INTO registration VALUES(70016,2006,'C018',NULL,NULL,NULL,NULL,NULL);
+
+INSERT INTO registration VALUES(70017,2005,'C019',NULL,NULL,NULL,NULL,NULL);
+INSERT INTO registration VALUES(70018,2006,'C020',NULL,NULL,NULL,NULL,NULL);
+
+
+
+CREATE TABLE instructor (
+instructorid VARCHAR2(4) CONSTRAINT pk_instructor_instructorid PRIMARY KEY,
+instructorname VARCHAR2(30) NOT NULL,
+dateofjoining DATE,
+departmentid NUMBER(2) CONSTRAINT fk_department_departmentid REFERENCES department(departmentid),
+remaininghours NUMBER(3)
+);
+
+
+INSERT INTO instructor VALUES('I101','Bob Hockins','12-Jan-2000',10,0);
+INSERT INTO instructor VALUES('I102','Suguru Zikovich','21-Feb-2001',10,0);
+INSERT INTO instructor VALUES('I103','Ritivoi','13-Jan-2003',10,0);
+INSERT INTO instructor VALUES('I104','David Field','30-Mar-1999',20,40);
+INSERT INTO instructor VALUES('I105','Emillie Norton','04-Jun-1998',20,40);
+INSERT INTO instructor VALUES('I106','Ron Hardman','01-Jan-2005',20,40);
+INSERT INTO instructor VALUES('I107','Scott Urman','08-Apr-2008',30,40);
+INSERT INTO instructor VALUES('I108','Daisy Samson','09-Dec-2004',30,40);
+INSERT INTO instructor VALUES('I109','Ford Bravo','10-May-1998',30,40);
+
+ALTER TABLE department ADD CONSTRAINT  fk_department_headofdepartment FOREIGN KEY (headofdepartment) REFERENCES instructor(instructorid) ON DELETE CASCADE;
+
+
+CREATE TABLE courseallocation (
+courseallocationid VARCHAR2(6) CONSTRAINT pk_coursealctn_allocationid PRIMARY KEY,
+courseid VARCHAR2(4) CONSTRAINT fk_coursealctn_courseid REFERENCES course(courseid),
+instructorid VARCHAR2(4) CONSTRAINT fk_coursealctn_instructorid REFERENCES instructor(instructorid)
+);
+
+INSERT INTO courseallocation VALUES(4001,'C005','I101');
+INSERT INTO courseallocation VALUES(4002,'C006','I102');
+INSERT INTO courseallocation VALUES(4003,'C007','I103');
+INSERT INTO courseallocation VALUES(4004,'C008','I103');
+INSERT INTO courseallocation VALUES(4005,'C013','I105');
+INSERT INTO courseallocation VALUES(4006,'C014','I107');
+INSERT INTO courseallocation VALUES(4007,'C015','I109');
+INSERT INTO courseallocation VALUES(4008,'C016','I108');
+
+
+CREATE TABLE hostel (
+hostelid VARCHAR2(4) CONSTRAINT pk_hostel_hostelid PRIMARY KEY,
+roomsavailable NUMBER(3),
+hosteltype VARCHAR2(1) CONSTRAINT ck_hostel_hosteltype CHECK (hosteltype IN('M','F')),
+hostelfee NUMBER(6) CONSTRAINT ck_hostel_hostelfee CHECK (hostelfee>0)
+);
+
+INSERT INTO hostel VALUES('H1','2','M',2000);
+INSERT INTO hostel VALUES('H2','3','F',3000);
+
+CREATE TABLE hostelallocation (
+hostelallocationid NUMBER CONSTRAINT pk_hostelallocation PRIMARY KEY,
+hostelid VARCHAR2(4) CONSTRAINT fk_hostel_hostelid REFERENCES hostel(hostelid),
+studentid NUMBER CONSTRAINT fk_hostel_studentid REFERENCES student(studentid)
+);
+
+INSERT INTO hostelallocation VALUES(5001,'H2','2001');
+INSERT INTO hostelallocation VALUES(5002,'H1','2005');
+INSERT INTO hostelallocation VALUES(5003,'H1','2004');
+
+COMMIT;
+
+
+

@@ -1,0 +1,16 @@
+.App {
+  text-align: center;
+}
+a{
+ margin-right:25px;
+ color:black;
+ text-decoration: none;
+}
+a:hover{
+  
+  text-decoration: underline;
+  color: rgb(172, 29, 160);
+}
+h1{
+  font-size: 40px;;
+}
