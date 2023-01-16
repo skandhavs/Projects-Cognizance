@@ -1,0 +1,9 @@
+@import url('https://fonts.googleapis.com/css2?family=Quicksand:wght@500&display=swap');
+.App{
+  background-color: #202124;
+  font-family: 'Quicksand', sans-serif;
+}
+#root{
+  background-color: #202124;
+  height:100vh;
+}

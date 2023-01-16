@@ -1,0 +1,15 @@
+
+@import url('https://fonts.googleapis.com/css2?family=Quicksand:wght@500&display=swap');
+
+.Header
+{
+    font-family: 'Quicksand', sans-serif;
+    font-size: 45px;
+    font-weight: 550;
+    color: #FF5F1F;
+    text-align: center;
+}
+
+svg{
+    margin-top: 35px;;
+}
